@@ -11,10 +11,17 @@ class setupController extends Controller
         return view('setup.category');
     }
     public function categoryCreate(Request $request){
+        $request->validate([
+            'category_name' => 'required|unique:categories,category_name'
+        ],['category_name.required' => 'Please Input Category Name.',
+            'category_name.unique' => 'Category already exists.'
+        ]);
+
         $category=new Category();
         $category->category_name=$request->category_name;
+        $category->status=$request->status;
         $category->save();
-        return redirect()->back()->with('success','Successfully Supplier Added');
+        return redirect()->back()->with('success','Successfully Category Added');
     }
 
 

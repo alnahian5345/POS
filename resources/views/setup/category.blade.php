@@ -66,8 +66,8 @@
                                         class="form-select rounded-4"
                                         style="height:52px;">
 
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
+                                    <option value="N">Inactive</option>
+                                    <option value="Y">Active</option>
 
                                 </select>
 
@@ -105,4 +105,21 @@
         </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6'
+            });
+
+        </script>
+
+    @endif
+
 @endsection
