@@ -10,4 +10,6 @@ Route::get('/', function () {
 
 
 Route::get('/product',[setupController::class,'product'])->name('setup.product');
+
 Route::get('/category',[setupController::class,'category'])->name('setup.category');
+Route::post('/category',[setupController::class,'categoryCreate'])->name('setup.category.create');
