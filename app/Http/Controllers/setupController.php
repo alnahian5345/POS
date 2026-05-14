@@ -8,7 +8,8 @@ use App\Models\Category;
 class setupController extends Controller
 {
     public function category(){
-        return view('setup.category');
+        $category=Category::all();
+        return view('setup.category',compact('category'));
     }
     public function categoryCreate(Request $request){
         $request->validate([
@@ -23,7 +24,6 @@ class setupController extends Controller
         $category->save();
         return redirect()->back()->with('success','Successfully Category Added');
     }
-
 
 
     public function product(){

@@ -105,6 +105,71 @@
         </div>
 
     </div>
+
+{{--    ------------------------}}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header border-0 py-4" style="background:#e6fff9;">
+                    <h3 class="fw-bold mb-1">Category List</h3>
+                    <p class="text-muted mb-0">Manage your existing inventory categories.</p>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4 py-3">#</th>
+                                <th class="py-3">Category Name</th>
+                                <th class="py-3">Status</th>
+                                <th class="py-3 text-end pe-4">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($category as $cat)
+                                <tr>
+                                    <td class="ps-4">id</td>
+                                    <td class="fw-semibold">{{ $cat->category_name }}</td>
+                                    <td>
+
+{{--                                        @if($category->status == 'Y')--}}
+{{--                                            <span class="badge rounded-pill bg-success-subtle text-success px-3">Active</span>--}}
+{{--                                        @else--}}
+{{--                                            <span class="badge rounded-pill bg-danger-subtle text-danger px-3">Inactive</span>--}}
+{{--                                        @endif--}}
+                                    </td>
+{{--                                    <td class="text-end pe-4">--}}
+{{--                                        <div class="btn-group">--}}
+{{--                                            <a href="{{ route('setup.category.edit', $category->id) }}"--}}
+{{--                                               class="btn btn-sm btn-light rounded-3 me-2">--}}
+{{--                                                <i class="bi bi-pencil-square"></i>--}}
+{{--                                            </a>--}}
+{{--                                            <form action="{{ route('setup.category.delete', $category->id) }}" method="POST">--}}
+{{--                                                @csrf--}}
+{{--                                                @method('DELETE')--}}
+{{--                                                <button type="submit" class="btn btn-sm btn-light text-danger rounded-3">--}}
+{{--                                                    <i class="bi bi-trash"></i>--}}
+{{--                                                </button>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">
+                                        No categories found.
+                                    </td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))
