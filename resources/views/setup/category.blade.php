@@ -106,7 +106,7 @@
 
     </div>
 
-{{--    ------------------------}}
+    {{--    ------------------------}}
     <div class="row justify-content-center mt-4">
         <div class="col-lg-10">
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
@@ -127,33 +127,38 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($category as $cat)
+                            @forelse($category as $key=>$cat)
                                 <tr>
-                                    <td class="ps-4">id</td>
+                                    <td class="ps-4">{{$key + 1 }}</td>
                                     <td class="fw-semibold">{{ $cat->category_name }}</td>
-                                    <td>
+                                    <td >
+                                        @if($cat->status=='Y') <span class="badge rounded-pill bg-success-subtle text-success px-3">Active</span>
+                                        @else  <span class="badge rounded-pill bg-success-subtle text-success px-3">In Active</span>
+                                        @endif
 
-{{--                                        @if($category->status == 'Y')--}}
-{{--                                            <span class="badge rounded-pill bg-success-subtle text-success px-3">Active</span>--}}
-{{--                                        @else--}}
-{{--                                            <span class="badge rounded-pill bg-danger-subtle text-danger px-3">Inactive</span>--}}
-{{--                                        @endif--}}
                                     </td>
-{{--                                    <td class="text-end pe-4">--}}
-{{--                                        <div class="btn-group">--}}
-{{--                                            <a href="{{ route('setup.category.edit', $category->id) }}"--}}
-{{--                                               class="btn btn-sm btn-light rounded-3 me-2">--}}
-{{--                                                <i class="bi bi-pencil-square"></i>--}}
-{{--                                            </a>--}}
-{{--                                            <form action="{{ route('setup.category.delete', $category->id) }}" method="POST">--}}
-{{--                                                @csrf--}}
-{{--                                                @method('DELETE')--}}
-{{--                                                <button type="submit" class="btn btn-sm btn-light text-danger rounded-3">--}}
-{{--                                                    <i class="bi bi-trash"></i>--}}
-{{--                                                </button>--}}
-{{--                                            </form>--}}
-{{--                                        </div>--}}
-{{--                                    </td>--}}
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group">
+
+                                            <!-- Edit Button -->
+                                            <a href=""
+                                               class="btn btn-sm btn-light text-primary rounded-3 me-2">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+
+                                            <!-- Delete Button -->
+                                            <form action="{{Route('setup.category.delete',$cat->category_id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-light text-danger rounded-3">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -184,7 +189,17 @@
             });
 
         </script>
+    @else
+        <script>
 
+            Swal.fire({
+                icon: 'success',
+                title: 'Delete',
+                text: '{{ session('Delete') }}',
+                confirmButtonColor: '#3085d6'
+            });
+
+        </script>
     @endif
 
 @endsection
