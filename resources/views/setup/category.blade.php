@@ -140,6 +140,7 @@
                                     <td class="text-end pe-4">
                                         <div class="btn-group">
 
+
                                             <!-- Edit Button -->
                                             <a href=""
                                                class="btn btn-sm btn-light text-primary rounded-3 me-2">
@@ -178,27 +179,24 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))
-
         <script>
-
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
                 confirmButtonColor: '#3085d6'
             });
-
         </script>
-    @else
-        <script>
+    @endif
 
+    @if(session('delete'))
+        <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Delete',
-                text: '{{ session('Delete') }}',
+                title: 'Deleted',
+                text: '{{ session('delete') }}',
                 confirmButtonColor: '#3085d6'
             });
-
         </script>
     @endif
 

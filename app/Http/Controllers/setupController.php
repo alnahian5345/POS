@@ -24,10 +24,18 @@ class setupController extends Controller
         $category->save();
         return redirect()->back()->with('success','Successfully Category Added');
     }
+
+    public function categoryUpdate(Request $request,$category_id){
+        $category=Category::findOrFail($category_id);
+
+    }
+
+
+
     public function categoryDelete(Request $request,$category_id){
         $category=Category::findOrFail($category_id);
          $category->delete();
-        return redirect()->back()->with('Delete','Successfully Category Added');
+        return redirect()->back()->with('delete','Successfully Category Deleted');
     }
 
     public function product(){
