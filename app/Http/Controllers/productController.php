@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+
 
 class productController extends Controller
 {
@@ -11,7 +13,8 @@ class productController extends Controller
      */
     public function product()
     {
-        return view('setup.product');
+        $product=Product::all();
+        return view('setup.product',compact('product'));
     }
 
     /**

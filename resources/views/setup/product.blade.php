@@ -162,4 +162,151 @@
 
     </div>
 
+{{----------------------------------------}}
+    <div class="row justify-content-center mt-4">
+
+        <div class="col-xl-9">
+
+            <div class="card border-0 shadow rounded-4 overflow-hidden">
+
+                <!-- Table Header -->
+                <div class="card-header border-0 py-3 px-4"
+                     style="background: linear-gradient(135deg,#f8f9fa,#eef2ff);">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                        <div>
+
+                            <h4 class="fw-bold mb-1 text-dark fs-5">
+                                <i class="bi bi-table me-2 text-primary"></i>
+                                Category List
+                            </h4>
+
+                            <p class="text-muted mb-0 small">
+                                Manage your existing inventory categories.
+                            </p>
+
+                        </div>
+
+                        <span class="badge bg-primary rounded-pill px-3 py-2 small">
+                                Total : {{ count($product) }}
+                            </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Table -->
+                <div class="card-body p-0">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0 small">
+
+                            <thead class="bg-light">
+
+                            <tr>
+                                <th class="ps-4 py-2 fw-bold">#</th>
+                                <th class="py-2 fw-bold">Product Name</th>
+                                <th class="py-2 fw-bold">Category</th>
+                                <th class="py-2 fw-bold">Purchase Price</th>
+                                <th class="py-2 fw-bold">Sales Price</th>
+                                <th class="py-2 fw-bold text-end pe-4">Actions</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            @forelse($product as $key => $prod)
+
+                                <tr>
+
+                                    <td class="ps-4 py-2 fw-semibold">
+                                        {{ $key + 1 }}
+                                    </td>
+                                    <td class="py-2">
+                                        <div class="fw-semibold text-dark">
+                                            {{ $prod->product_name }}
+                                        </div>
+                                    </td>
+                                    <td class="py-2">
+                                        <div class="fw-semibold text-dark">
+                                            {{ $prod->category_id }}
+                                        </div>
+                                    </td>
+                                    <td class="py-2">
+                                        <div class="fw-semibold text-dark">
+                                            {{ $prod->purchase_price }}
+                                        </div>
+                                    </td>
+                                    <td class="py-2">
+                                        <div class="fw-semibold text-dark">
+                                            {{ $prod->sale_price }}
+                                        </div>
+                                    </td>
+                                    <td class="text-end pe-4 py-2">
+
+                                        <div class="d-flex justify-content-end gap-2">
+
+                                            <!-- Edit -->
+                                            <a href=" "
+                                               class="btn btn-sm btn-light border text-primary rounded-3">
+
+                                                <i class="bi bi-pencil-square"></i>
+
+                                            </a>
+
+                                            <!-- Delete -->
+                                            <form action=""
+                                                  method="POST">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-light border text-danger rounded-3">
+
+                                                    <i class="bi bi-trash"></i>
+
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="4"
+                                        class="text-center py-4 text-muted small">
+
+                                        <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+
+                                        No categories found.
+
+                                    </td>
+
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 @endsection
