@@ -1,177 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Form</title>
+@extends('main.master')
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <div class="container-fluid py-4">
 
-    <style>
+        <div class="row justify-content-center">
 
-        body{
-            background: linear-gradient(to right, #eef2ff, #fdf2f8);
-            min-height: 100vh;
-        }
+            <div class="col-lg-6 col-md-8">
 
-        .product-card{
-            border: none;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+                <div class="card border-0 shadow rounded-4 overflow-hidden">
 
-        .card-header{
-            background: linear-gradient(to right, #6366f1, #ec4899);
-            padding: 20px;
-            border: none;
-        }
+                    <!-- Header -->
+                    <div class="card-header border-0 py-3 px-4"
+                         style="background: linear-gradient(135deg,#0d6efd,#4f8cff);">
 
-        .card-header h3{
-            color: white;
-            font-weight: 700;
-            margin: 0;
-        }
+                        <h4 class="text-white fw-bold mb-1 fs-5">
+                            <i class="bi bi-box-seam me-2"></i>
+                            Product Entry Form
+                        </h4>
 
-        .form-control,
-        .form-select{
-            height: 50px;
-            border-radius: 12px;
-            border: 1px solid #d1d5db;
-        }
+                        <p class="text-white-50 mb-0 small">
+                            Add your product information.
+                        </p>
 
-        .form-control:focus,
-        .form-select:focus{
-            box-shadow: 0 0 0 0.20rem rgba(99,102,241,.25);
-            border-color: #6366f1;
-        }
+                    </div>
 
-        .input-group-text{
-            border-radius: 12px 0 0 12px;
-            background: #f3f4f6;
-        }
+                    <!-- Body -->
+                    <div class="card-body p-4 bg-white">
 
-        .btn-save{
-            background: linear-gradient(to right, #6366f1, #ec4899);
-            border: none;
-            height: 50px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+                        <form action="" method="POST">
 
-        .btn-save:hover{
-            transform: translateY(-2px);
-            opacity: .95;
-        }
-
-        label{
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-    </style>
-
-</head>
-<body>
-
-<div class="container py-5">
-
-    <div class="row justify-content-center">
-
-        <div class="col-lg-7">
-
-            <div class="card shadow-lg product-card">
-
-                <div class="card-header">
-                    <h3><i class="bi bi-box-seam"></i> Product Entry Form</h3>
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form action="" method="POST">
+                        @csrf
 
                         <!-- Category -->
-                        <div class="mb-4">
-                            <label>Category</label>
+                            <div class="mb-3">
 
-                            <select name="category_id" class="form-select">
-                                <option value="">Select Category</option>
-                                <option value="1">Electronics</option>
-                                <option value="2">Groceries</option>
-                                <option value="3">Stationery</option>
-                            </select>
-                        </div>
+                                <label class="form-label fw-semibold small">
+                                    Category
+                                </label>
 
-                        <!-- Product Name -->
-                        <div class="mb-4">
-                            <label>Product Name</label>
+                                <select name="category_id"
+                                        class="form-select form-select-sm rounded-3">
 
-                            <div class="input-group">
-                                <span class="input-group-text">
+                                    <option value="">
+                                        Select Category
+                                    </option>
+
+                                    <option value="1">
+                                        Electronics
+                                    </option>
+
+                                    <option value="2">
+                                        Groceries
+                                    </option>
+
+                                    <option value="3">
+                                        Stationery
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <!-- Product Name -->
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold small">
+                                    Product Name
+                                </label>
+
+                                <div class="input-group input-group-sm">
+
+                                <span class="input-group-text bg-light">
                                     <i class="bi bi-bag"></i>
                                 </span>
 
-                                <input
-                                    type="text"
-                                    name="product_name"
-                                    class="form-control"
-                                    placeholder="Enter Product Name"
-                                >
+                                    <input type="text"
+                                           name="product_name"
+                                           class="form-control"
+                                           placeholder="Enter Product Name">
+
+                                </div>
+
                             </div>
-                        </div>
 
-                        <!-- Purchase Price -->
-                        <div class="mb-4">
-                            <label>Purchase Price</label>
+                            <!-- Purchase Price -->
+                            <div class="mb-3">
 
-                            <div class="input-group">
-                                <span class="input-group-text">
+                                <label class="form-label fw-semibold small">
+                                    Purchase Price
+                                </label>
+
+                                <div class="input-group input-group-sm">
+
+                                <span class="input-group-text bg-light">
                                     ৳
                                 </span>
 
-                                <input
-                                    type="number"
-                                    step="0.01"
-                                    name="purchase_price"
-                                    class="form-control"
-                                    placeholder="Enter Purchase Price"
-                                >
+                                    <input type="number"
+                                           step="0.01"
+                                           name="purchase_price"
+                                           class="form-control"
+                                           placeholder="Enter Purchase Price">
+
+                                </div>
+
                             </div>
-                        </div>
 
-                        <!-- Sale Price -->
-                        <div class="mb-4">
-                            <label>Sale Price</label>
+                            <!-- Sale Price -->
+                            <div class="mb-4">
 
-                            <div class="input-group">
-                                <span class="input-group-text">
+                                <label class="form-label fw-semibold small">
+                                    Sale Price
+                                </label>
+
+                                <div class="input-group input-group-sm">
+
+                                <span class="input-group-text bg-light">
                                     ৳
                                 </span>
 
-                                <input
-                                    type="number"
-                                    step="0.01"
-                                    name="sale_price"
-                                    class="form-control"
-                                    placeholder="Enter Sale Price"
-                                >
+                                    <input type="number"
+                                           step="0.01"
+                                           name="sale_price"
+                                           class="form-control"
+                                           placeholder="Enter Sale Price">
+
+                                </div>
+
                             </div>
-                        </div>
 
-                        <!-- Submit -->
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-save text-white">
-                                <i class="bi bi-check-circle"></i>
-                                Save Product
-                            </button>
-                        </div>
+                            <!-- Button -->
+                            <div class="d-flex gap-2">
 
-                    </form>
+                                <button type="submit"
+                                        class="btn btn-primary btn-sm px-4 rounded-3 fw-semibold">
+
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    Save Product
+
+                                </button>
+
+                                <a href=""
+                                   class="btn btn-light btn-sm border px-4 rounded-3 fw-semibold">
+
+                                    Cancel
+
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
@@ -181,7 +162,4 @@
 
     </div>
 
-</div>
-
-</body>
-</html>
+@endsection

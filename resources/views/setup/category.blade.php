@@ -1,53 +1,94 @@
 @extends('main.master')
 
 @section('content')
-    <div class="container-fluid py-4">
 
+    <div class="container-fluid py-3">
+
+        <!-- Page Heading -->
+        <div class="row mb-3">
+            <div class="col-12">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                    <div>
+                        <h2 class="fw-bold mb-1 text-dark fs-4">
+                            <i class="bi bi-grid-fill text-primary me-2"></i>
+                            Category Management
+                        </h2>
+
+                        <p class="text-muted mb-0 small">
+                            Manage your inventory product categories easily.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Form Section -->
         <div class="row justify-content-center">
 
-            <div class="col-lg-6">
+            <div class="col-xl-5 col-lg-6">
 
-                <!-- Card -->
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card border-0 shadow rounded-4 overflow-hidden">
 
-                    <!-- Header -->
-                    <div class="card-header border-0 py-4"
-                         style="background:#e6fff9;">
+                    <!-- Card Header -->
+                    <div class="card-header border-0 py-3 px-4"
+                         style="background: linear-gradient(135deg,#0d6efd,#4f8cff);">
 
-                        <h3 class="fw-bold mb-1">
-                            Create Category
-                        </h3>
+                        <h4 class="text-white fw-bold mb-1 fs-5">
+                            <i class="bi bi-folder-plus me-2"></i>
 
-                        <p class="text-muted mb-0">
-                            Add a new category for your inventory products.
+                            {{ isset($editCategory)
+                                ? 'Update Category'
+                                : 'Create Category' }}
+                        </h4>
+
+                        <p class="text-white-50 mb-0 small">
+                            Add or manage your inventory categories.
                         </p>
 
                     </div>
 
-                    <!-- Body -->
-                    <div class="card-body p-4">
+                    <!-- Card Body -->
+                    <div class="card-body p-3 bg-white">
 
-                        <form action="{{ route('setup.category.create') }}" method="POST">
+                        <form action="{{ isset($editCategory)
+                                ? route('setup.category.update',$editCategory->category_id)
+                                : route('setup.category.create') }}"
+                              method="POST">
 
                         @csrf
 
-                        <!-- Category Name -->
-                            <div class="mb-4">
+                        @if(isset($editCategory))
+                            @method('PUT')
+                        @endif
 
-                                <label class="form-label fw-semibold">
+                        <!-- Category Name -->
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold text-dark small">
                                     Category Name
                                 </label>
 
-                                <input type="text"
-                                       name="category_name"
-                                       value="{{ old('category_name') }}"
-                                       class="form-control rounded-4"
-                                       placeholder="Enter category name"
-                                       style="height:52px;">
+                                <div class="input-group input-group-sm">
+
+                                    <span class="input-group-text bg-light border-0 rounded-start-4">
+                                        <i class="bi bi-tag-fill text-primary"></i>
+                                    </span>
+
+                                    <input type="text"
+                                           name="category_name"
+                                           value="{{ old('category_name', isset($editCategory) ? $editCategory->category_name : '') }}"
+                                           class="form-control border-0 bg-light rounded-end-4 py-2 small"
+                                           placeholder="Enter category name">
+
+                                </div>
 
                                 @error('category_name')
 
-                                <small class="text-danger">
+                                <small class="text-danger d-block mt-1">
                                     {{ $message }}
                                 </small>
 
@@ -56,38 +97,48 @@
                             </div>
 
                             <!-- Status -->
-                            <div class="mb-4">
+                            <div class="mb-3">
 
-                                <label class="form-label fw-semibold">
+                                <label class="form-label fw-semibold text-dark small">
                                     Status
                                 </label>
 
-                                <select name="status"
-                                        class="form-select rounded-4"
-                                        style="height:52px;">
+                                <div class="input-group input-group-sm">
 
-                                    <option value="N">Inactive</option>
-                                    <option value="Y">Active</option>
+                                    <span class="input-group-text bg-light border-0 rounded-start-4">
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    </span>
 
-                                </select>
+                                    <select name="status"
+                                            class="form-select border-0 bg-light rounded-end-4 py-2 small">
+
+                                        <option value="N">Inactive</option>
+                                        <option value="Y">Active</option>
+
+                                    </select>
+
+                                </div>
 
                             </div>
 
                             <!-- Buttons -->
-                            <div class="d-flex gap-2">
+                            <div class="d-flex gap-2 mt-3">
 
                                 <button type="submit"
-                                        class="btn px-4 py-3 text-dark fw-semibold rounded-4"
-                                        style="background:#e6fff9;">
+                                        class="btn btn-primary px-3 py-2 rounded-4 fw-semibold shadow-sm small">
 
-                                    <i class="bi bi-check-circle me-1"></i>
-                                    Save Category
+                                    <i class="bi bi-save2 me-1"></i>
+
+                                    {{ isset($editCategory)
+                                        ? 'Update'
+                                        : 'Save' }}
 
                                 </button>
 
                                 <a href=""
-                                   class="btn btn-light px-4 py-3 rounded-4 fw-semibold">
+                                   class="btn btn-light border px-3 py-2 rounded-4 fw-semibold small">
 
+                                    <i class="bi bi-arrow-left me-1"></i>
                                     Cancel
 
                                 </a>
@@ -104,100 +155,207 @@
 
         </div>
 
-    </div>
+        <!-- Category List -->
+        <div class="row justify-content-center mt-4">
 
-    {{--    ------------------------}}
-    <div class="row justify-content-center mt-4">
-        <div class="col-lg-10">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="card-header border-0 py-4" style="background:#e6fff9;">
-                    <h3 class="fw-bold mb-1">Category List</h3>
-                    <p class="text-muted mb-0">Manage your existing inventory categories.</p>
-                </div>
+            <div class="col-xl-9">
 
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-light">
-                            <tr>
-                                <th class="ps-4 py-3">#</th>
-                                <th class="py-3">Category Name</th>
-                                <th class="py-3">Status</th>
-                                <th class="py-3 text-end pe-4">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @forelse($category as $key=>$cat)
-                                <tr>
-                                    <td class="ps-4">{{$key + 1 }}</td>
-                                    <td class="fw-semibold">{{ $cat->category_name }}</td>
-                                    <td >
-                                        @if($cat->status=='Y') <span class="badge rounded-pill bg-success-subtle text-success px-3">Active</span>
-                                        @else  <span class="badge rounded-pill bg-success-subtle text-success px-3">In Active</span>
-                                        @endif
+                <div class="card border-0 shadow rounded-4 overflow-hidden">
 
-                                    </td>
-                                    <td class="text-end pe-4">
-                                        <div class="btn-group">
+                    <!-- Table Header -->
+                    <div class="card-header border-0 py-3 px-4"
+                         style="background: linear-gradient(135deg,#f8f9fa,#eef2ff);">
 
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-                                            <!-- Edit Button -->
-                                            <a href=""
-                                               class="btn btn-sm btn-light text-primary rounded-3 me-2">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
+                            <div>
 
-                                            <!-- Delete Button -->
-                                            <form action="{{Route('setup.category.delete',$cat->category_id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
+                                <h4 class="fw-bold mb-1 text-dark fs-5">
+                                    <i class="bi bi-table me-2 text-primary"></i>
+                                    Category List
+                                </h4>
 
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-light text-danger rounded-3">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
-                                            </form>
+                                <p class="text-muted mb-0 small">
+                                    Manage your existing inventory categories.
+                                </p>
 
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="text-center py-5 text-muted">
-                                        No categories found.
-                                    </td>
-                                </tr>
-                            @endforelse
-                            </tbody>
-                        </table>
+                            </div>
+
+                            <span class="badge bg-primary rounded-pill px-3 py-2 small">
+                                Total : {{ count($category) }}
+                            </span>
+
+                        </div>
+
                     </div>
+
+                    <!-- Table -->
+                    <div class="card-body p-0">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover align-middle mb-0 small">
+
+                                <thead class="bg-light">
+
+                                <tr>
+                                    <th class="ps-4 py-2 fw-bold">#</th>
+                                    <th class="py-2 fw-bold">Category Name</th>
+                                    <th class="py-2 fw-bold">Status</th>
+                                    <th class="py-2 fw-bold text-end pe-4">Actions</th>
+                                </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                @forelse($category as $key => $cat)
+
+                                    <tr>
+
+                                        <td class="ps-4 py-2 fw-semibold">
+                                            {{ $key + 1 }}
+                                        </td>
+
+                                        <td class="py-2">
+                                            <div class="fw-semibold text-dark">
+                                                {{ $cat->category_name }}
+                                            </div>
+                                        </td>
+
+                                        <td class="py-2">
+
+                                            @if($cat->status == 'Y')
+
+                                                <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1">
+                                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                                    Active
+                                                </span>
+
+                                            @else
+
+                                                <span class="badge bg-danger-subtle text-danger rounded-pill px-2 py-1">
+                                                    <i class="bi bi-x-circle-fill me-1"></i>
+                                                    Inactive
+                                                </span>
+
+                                            @endif
+
+                                        </td>
+
+                                        <td class="text-end pe-4 py-2">
+
+                                            <div class="d-flex justify-content-end gap-2">
+
+                                                <!-- Edit -->
+                                                <a href="{{ route('setup.category.editCategory',$cat->category_id) }}"
+                                                   class="btn btn-sm btn-light border text-primary rounded-3">
+
+                                                    <i class="bi bi-pencil-square"></i>
+
+                                                </a>
+
+                                                <!-- Delete -->
+                                                <form action="{{ Route('setup.category.delete',$cat->category_id) }}"
+                                                      method="POST">
+
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-light border text-danger rounded-3">
+
+                                                        <i class="bi bi-trash"></i>
+
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+
+                                        <td colspan="4"
+                                            class="text-center py-4 text-muted small">
+
+                                            <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+
+                                            No categories found.
+
+                                        </td>
+
+                                    </tr>
+
+                                @endforelse
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
+    <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))
+
         <script>
+
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#0d6efd'
             });
+
         </script>
+
+    @endif
+
+    @if(session('updated'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated',
+                text: '{{ session('updated') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
     @endif
 
     @if(session('delete'))
+
         <script>
+
             Swal.fire({
                 icon: 'success',
                 title: 'Deleted',
                 text: '{{ session('delete') }}',
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#0d6efd'
             });
+
         </script>
+
     @endif
 
 @endsection
