@@ -28,7 +28,7 @@
                     <!-- Body -->
                     <div class="card-body p-4 bg-white">
 
-                        <form action="" method="POST">
+                        <form action="{{Route('setup.product.create')}}" method="POST">
 
                         @csrf
 
@@ -171,11 +171,11 @@
 
                             <h4 class="fw-bold mb-1 text-dark fs-5">
                                 <i class="bi bi-table me-2 text-primary"></i>
-                                Category List
+                                Product List
                             </h4>
 
                             <p class="text-muted mb-0 small">
-                                Manage your existing inventory categories.
+                                Manage your existing Product.
                             </p>
 
                         </div>
@@ -245,7 +245,7 @@
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <!-- Delete -->
-                                            <form action=""
+                                            <form action="{{Route('setup.product.delete',$prod->product_id)}}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -292,4 +292,52 @@
         </div>
 
     </div>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
+    @endif
+
+    @if(session('updated'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated',
+                text: '{{ session('updated') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
+    @endif
+
+    @if(session('delete'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Deleted',
+                text: '{{ session('delete') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
+    @endif
 @endsection

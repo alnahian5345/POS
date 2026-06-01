@@ -19,3 +19,8 @@ Route::delete('/category/{category_id}',[setupController::class,'categoryDelete'
 
 
 Route::get('/product',[productController::class,'product'])->name('setup.product');
+Route::post('/product',[productController::class,'create'])->name('setup.product.create');
+Route::delete('/product/delete/{product_id}',[productController::class,'destroy'])->name('setup.product.delete');
+Route::get('/product/edit/{product_id}',[productController::class,'edit'])->name('setup.product.edit');
+Route::put('/product/update/{product_id}',[productController::class,'update'])->name('setup.product.update');
+
