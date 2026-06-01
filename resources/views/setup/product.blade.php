@@ -46,17 +46,9 @@
                                         Select Category
                                     </option>
 
-                                    <option value="1">
-                                        Electronics
-                                    </option>
-
-                                    <option value="2">
-                                        Groceries
-                                    </option>
-
-                                    <option value="3">
-                                        Stationery
-                                    </option>
+                                    @foreach($category as $cat)
+                                        <option value="{{ $cat->category_id }}">{{ $cat->category_name }}</option>
+                                    @endforeach
 
                                 </select>
 
@@ -232,7 +224,7 @@
                                     </td>
                                     <td class="py-2">
                                         <div class="fw-semibold text-dark">
-                                            {{ $prod->category_id }}
+                                            {{ $prod->category->category_name}}
                                         </div>
                                     </td>
                                     <td class="py-2">
@@ -246,31 +238,22 @@
                                         </div>
                                     </td>
                                     <td class="text-end pe-4 py-2">
-
                                         <div class="d-flex justify-content-end gap-2">
-
                                             <!-- Edit -->
                                             <a href=" "
                                                class="btn btn-sm btn-light border text-primary rounded-3">
-
                                                 <i class="bi bi-pencil-square"></i>
-
                                             </a>
-
                                             <!-- Delete -->
                                             <form action=""
                                                   method="POST">
-
                                                 @csrf
                                                 @method('DELETE')
 
                                                 <button type="submit"
                                                         class="btn btn-sm btn-light border text-danger rounded-3">
-
                                                     <i class="bi bi-trash"></i>
-
                                                 </button>
-
                                             </form>
 
                                         </div>

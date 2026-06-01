@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use App\Models\Category;
 
 class productController extends Controller
 {
@@ -13,8 +13,9 @@ class productController extends Controller
      */
     public function product()
     {
-        $product=Product::all();
-        return view('setup.product',compact('product'));
+        $product=Product::with('Category')->get();
+        $category = Category::all();
+        return view('setup.product',compact('product','category'));
     }
 
     /**
