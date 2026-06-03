@@ -155,7 +155,7 @@
                                             </a>
                                             <!-- Delete -->
 
-                                            <form action=""
+                                            <form action="{{Route('setup.customer.destroy',$cust->customer_id)}}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
