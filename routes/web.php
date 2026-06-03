@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\setupController;
 use App\Http\Controllers\productController;
-
+use App\Http\Controllers\CustomersController;
 Route::get('/', function () {
     return view('main.index');
 });
@@ -23,4 +23,7 @@ Route::post('/product',[productController::class,'create'])->name('setup.product
 Route::delete('/product/delete/{product_id}',[productController::class,'destroy'])->name('setup.product.delete');
 Route::get('/product/edit/{product_id}',[productController::class,'edit'])->name('setup.product.edit');
 Route::put('/product/update/{product_id}',[productController::class,'update'])->name('setup.product.update');
+
+Route::get('/customer',[CustomersController::class,'index'])->name('setup.customer');
+Route::post('/customer',[CustomersController::class,'create'])->name('setup.customer.create');
 

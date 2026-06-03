@@ -17,6 +17,7 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{Route('setup.category')}}">Category</a>
                         <a class="nav-link" href="{{Route('setup.product')}}">Product</a>
+                        <a class="nav-link" href="{{Route('setup.customer')}}">customer</a>
                     </nav>
                 </div>
 {{--                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">--}}
