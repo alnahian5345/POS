@@ -27,4 +27,6 @@ Route::put('/product/update/{product_id}',[productController::class,'update'])->
 Route::get('/customer',[CustomersController::class,'index'])->name('setup.customer');
 Route::post('/customer',[CustomersController::class,'create'])->name('setup.customer.create');
 Route::delete('/customer/destroy/{customer_id}',[CustomersController::class,'destroy'])->name('setup.customer.destroy');
+Route::get('/customer/edit/{customer_id}',[CustomersController::class,'edit'])->name('setup.customer.edit');
+Route::put('/customer/update/{customer_id}',[CustomersController::class,'update'])->name('setup.customer.update');
 

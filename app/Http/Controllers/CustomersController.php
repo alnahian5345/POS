@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customers;
+
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -31,37 +32,30 @@ class CustomersController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show()
-    {
-       //
-
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customers $customers)
+    public function edit(Customers $customers,$customer_id)
     {
-        //
+        $customer=Customers::all();
+        $editCustomer=$customer->findOrfail($customer_id);
+        return view('setup.customer',compact('customer','editCustomer'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customers $customers)
+    public function update(Request $request,$customer_id )
     {
-        //
+        $customer=Customers::findOrfail($customer_id);
+        $customer->customer_name=$request->customer_name;
+        $customer->phone=$request->phone;
+        $customer->email=$request->email;
+        $customer->address=$request->address;
+        $customer->save();
+        return redirect()->route('setup.customer')->with('update','Successfully Update');
     }
 
     /**

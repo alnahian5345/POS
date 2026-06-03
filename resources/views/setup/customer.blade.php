@@ -11,9 +11,11 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{isset($editCustomer)? Route('setup.customer.update',$editCustomer->customer_id):Route('setup.customer.create')}}" method="POST">
                             @csrf
-
+                            @if(isset($editCustomer))
+                                @method('PUT')
+                            @endif
                             <div class="row g-3">
 
                                 <div class="col-md-12">
@@ -24,6 +26,7 @@
                                            class="form-control"
                                            id="customer_name"
                                            name="customer_name"
+                                           value="{{old('customer_name',isset($editCustomer)? $editCustomer->customer_name:'')}}"
                                            placeholder="Enter Customer Name">
                                 </div>
 
@@ -35,6 +38,7 @@
                                            class="form-control"
                                            id="phone"
                                            name="phone"
+                                           value="{{old('phone',isset($editCustomer)? $editCustomer->phone:'')}}"
                                            placeholder="01XXXXXXXXX">
                                 </div>
 
@@ -46,6 +50,7 @@
                                            class="form-control"
                                            id="email"
                                            name="email"
+                                           value="{{old('email',isset($editCustomer)? $editCustomer->email:'')}}"
                                            placeholder="example@email.com">
                                 </div>
 
@@ -57,7 +62,7 @@
                                               id="address"
                                               name="address"
                                               rows="3"
-                                              placeholder="Enter customer address"></textarea>
+                                              placeholder="Enter customer address">{{ old('address', $editCustomer->address ?? '') }}</textarea>
                                 </div>
 
                             </div>
@@ -68,7 +73,7 @@
                                 </button>
 
                                 <button type="submit" class="btn btn-primary">
-                                    Save Customer
+                                    {{ isset($editCustomer) ? 'Update Customer' : 'Save Customer' }}
                                 </button>
                             </div>
 
@@ -101,7 +106,7 @@
                             </p>
                         </div>
                         <span class="badge bg-primary rounded-pill px-3 py-2 small">
-                                Total : {{ count($customer) }}
+                                Total : {{ count($customer ?? []) }}
                             </span>
                     </div>
                 </div>
@@ -149,7 +154,7 @@
                                         <div class="d-flex justify-content-end gap-2">
 
                                             <!-- Edit -->
-                                            <a href=""
+                                            <a href="{{Route('setup.customer.edit',$cust->customer_id)}}"
                                                class="btn btn-sm btn-light border text-primary rounded-3">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
