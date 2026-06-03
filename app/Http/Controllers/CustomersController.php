@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customers;
 
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\requires;
 
 class CustomersController extends Controller
 {
@@ -22,6 +23,26 @@ class CustomersController extends Controller
      */
     public function create(Request $request)
     {
+        $request->validate(
+            [
+                'customer_name' => 'nullable|max:100',
+                'phone'         => 'required|unique:customers,phone|max:11',
+                'email'         => 'nullable|email|unique:customers,email',
+                'address'       => 'required|max:255',
+            ],
+            [
+//                'customer_name.required' => 'Please input customer name.',
+                'customer_name.max'      => 'Customer name cannot exceed 100 characters.',
+                'phone.max'              => 'Phone cannot exceed 11 characters.',
+                'phone.required'         => 'Please input phone number.',
+                'phone.unique'           => 'Phone number already exists.',
+
+                'email.email'            => 'Please enter a valid email address.',
+                'email.unique'           => 'Email already exists.',
+
+                'address.max'            => 'Address cannot exceed 255 digit.',
+            ]
+        );
         $customer=new Customers();
         $customer->customer_name=$request->customer_name;
         $customer->phone=$request->phone;
@@ -65,6 +86,6 @@ class CustomersController extends Controller
     {
         $customers=Customers::findOrfail($customer_id);
         $customers->delete();
-        return redirect()->route('setup.customer')->with('delete','Duccessfully delete');
+        return redirect()->route('setup.customer')->with('delete','Successfully delete');
     }
 }

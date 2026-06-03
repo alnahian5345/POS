@@ -28,6 +28,12 @@
                                            name="customer_name"
                                            value="{{old('customer_name',isset($editCustomer)? $editCustomer->customer_name:'')}}"
                                            placeholder="Enter Customer Name">
+                                    @error('customer_name')
+                                    <small class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
+
                                 </div>
 
                                 <div class="col-md-6">
@@ -40,6 +46,11 @@
                                            name="phone"
                                            value="{{old('phone',isset($editCustomer)? $editCustomer->phone:'')}}"
                                            placeholder="01XXXXXXXXX">
+                                    @error('phone')
+                                    <small class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6">
@@ -52,6 +63,11 @@
                                            name="email"
                                            value="{{old('email',isset($editCustomer)? $editCustomer->email:'')}}"
                                            placeholder="example@email.com">
+                                    @error('email')
+                                    <small class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
                                 </div>
 
                                 <div class="col-12">
@@ -63,6 +79,11 @@
                                               name="address"
                                               rows="3"
                                               placeholder="Enter customer address">{{ old('address', $editCustomer->address ?? '') }}</textarea>
+                                    @error('address')
+                                    <small class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </small>
+                                    @enderror
                                 </div>
 
                             </div>
@@ -188,4 +209,49 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
+    @endif
+
+    @if(session('update'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated',
+                text: '{{ session('update') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+
+    @endif
+
+    @if(session('delete'))
+
+        <script>
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Deleted',
+                text: '{{ session('delete') }}',
+                confirmButtonColor: '#0d6efd'
+            });
+
+        </script>
+    @endif
 @endsection
