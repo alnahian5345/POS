@@ -28,7 +28,7 @@ class CustomersController extends Controller
                 'customer_name' => 'nullable|max:100',
                 'phone'         => 'required|unique:customers,phone|max:11',
                 'email'         => 'nullable|email|unique:customers,email',
-                'address'       => 'required|max:255',
+                'address'       => 'max:255',
             ],
             [
 //                'customer_name.required' => 'Please input customer name.',

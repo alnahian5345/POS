@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\setupController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\CustomersController;
-
+use App\Http\Controllers\purchaseController;
+use App\Http\Controllers\supplierController;
 
 Route::get('/', function () {
     return view('main.index');
@@ -30,3 +31,11 @@ Route::delete('/customer/destroy/{customer_id}',[CustomersController::class,'des
 Route::get('/customer/edit/{customer_id}',[CustomersController::class,'edit'])->name('setup.customer.edit');
 Route::put('/customer/update/{customer_id}',[CustomersController::class,'update'])->name('setup.customer.update');
 
+
+
+
+Route::get('/purchase',[purchaseController::class,'index'])->name('purchase.purchase');
+
+
+
+Route::get('/supplier',[supplierController::class,'index'])->name('setup.supplier');

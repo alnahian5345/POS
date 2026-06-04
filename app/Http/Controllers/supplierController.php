@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class customerController extends Controller
+class supplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
-
+   public function index(){
+       return view('setup.supplier');
+   }
     /**
      * Show the form for creating a new resource.
      */
