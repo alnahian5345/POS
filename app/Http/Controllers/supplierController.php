@@ -19,6 +19,14 @@ class supplierController extends Controller
      */
     public function create(Request $request)
     {
+        $request->validate([
+            'phone' => 'required|unique:suppliers,phone|max:20'
+        ],
+        [
+            'phone.unique'=>'Supplier phone number already exists.' ,
+            'phone.required' =>'Please input phone number.',
+            'phone.max' =>'Please input 11 digit phone number.'
+        ]);
         $supplier=new Supplier();
         $supplier->supplier_name    =$request->supplier_name;
         $supplier->phone            =$request->phone;

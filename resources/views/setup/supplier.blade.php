@@ -43,6 +43,7 @@
                                    name="supplier_name"
                                    class="form-control form-control-lg"
                                    placeholder="Enter Supplier Name">
+
                         </div>
 
                         <!-- Phone -->
@@ -56,6 +57,11 @@
                                    name="phone"
                                    class="form-control form-control-lg"
                                    placeholder="Enter Phone Number">
+                            @error('phone')
+                            <small class="text-danger d-block mt-1">
+                                {{ $message }}
+                            </small>
+                            @enderror
                         </div>
 
                         <!-- Address -->
