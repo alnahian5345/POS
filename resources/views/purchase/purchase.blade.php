@@ -3,7 +3,22 @@
     <div class="container-fluid py-4">
 
         <div class="card shadow-sm border-0 rounded-3">
+            <!-- Page Heading -->
+            <div class="row mb-3">
+                <div class="col-12">
 
+                    <h2 class="fw-bold mb-1 text-dark">
+                        <i class="bi bi-people-fill me-2"
+                           style="color: rgb(0 150 136);"></i>
+                        Purchase
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Purchase information and records.
+                    </p>
+
+                </div>
+            </div>
             <!-- Header -->
             <div class="card-header text-white"
                  style="background:#009688;">

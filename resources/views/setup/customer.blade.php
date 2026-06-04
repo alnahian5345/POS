@@ -146,7 +146,7 @@
 
                                     <textarea class="form-control"
                                               name="address"
-                                              rows="3"
+                                              rows="1"
                                               placeholder="Enter Customer Address">{{ old('address', isset($editCustomer) ? $editCustomer->address : '') }}</textarea>
 
                                     @error('address')

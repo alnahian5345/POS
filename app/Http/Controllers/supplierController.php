@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class supplierController extends Controller
@@ -10,7 +11,8 @@ class supplierController extends Controller
      * Display a listing of the resource.
      */
    public function index(){
-       return view('setup.supplier');
+       $supplier=Supplier::all();
+       return view('setup.supplier',compact('supplier'));
    }
     /**
      * Show the form for creating a new resource.
@@ -55,8 +57,10 @@ class supplierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($supplier_id)
     {
-        //
+        $supplier=Supplier::findOrfail($supplier_id);
+        $supplier->delete();
+        return redirect()->route('setup.supplier')->with('delete','Successfully Deleted');
     }
 }
