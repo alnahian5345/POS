@@ -1,271 +1,358 @@
 @extends('main.master')
 
 @section('content')
-    <div class="container-fluid py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
+
+    <div class="container-fluid px-3 py-3">
+
+        <!-- Page Heading -->
+        <div class="row mb-3">
+            <div class="col-12">
+
+                <h2 class="fw-bold mb-1 text-dark">
+                    <i class="bi bi-box-seam me-2"
+                       style="color: rgb(0 150 136);"></i>
+                    Product Management
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Manage product information and inventory.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Product Form -->
+        <div class="row">
+            <div class="col-12">
+
                 <div class="card border-0 shadow rounded-4 overflow-hidden">
-                    <!-- Header -->
-                    <div class="card-header border-0 py-3 px-4"
-                         style="background: linear-gradient(135deg,#0d6efd,#4f8cff);">
-                        <h4 class="text-white fw-bold mb-1 fs-5">
+
+                    <div class="card-header text-white py-3 px-4"
+                         style="background: rgb(0 150 136);">
+
+                        <h4 class="mb-1 fw-bold">
                             <i class="bi bi-box-seam me-2"></i>
-                            Product Entry Form
+
+                            {{ isset($editProduct)
+                                ? 'Update Product'
+                                : 'Create Product' }}
                         </h4>
-                        <p class="text-white-50 mb-0 small">
-                            Add your product information.
+
+                        <p class="mb-0 text-white-50 small">
+                            Add and manage product information.
                         </p>
+
                     </div>
-                    <!-- Body -->
-                    <div class="card-body p-4 bg-white">
-                        <form action="{{isset($editProduct)? Route('setup.product.update',$editProduct->product_id): Route('setup.product.create')}}" method="POST">
-                        @csrf
-                         @if(isset($editProduct))
-                             @method('PUT')
-                         @endif
 
-                        <!-- Category -->
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">Category</label>
-{{--                                <select name="category_id"--}}
-{{--                                        class="form-select form-select-sm rounded-3">--}}
-{{--                                    <option value="">Select Category</option>--}}
-{{--                                    @foreach($category as $cat)--}}
-{{--                                        <option value="{{ $cat->category_id }}">--}}
-{{--                                            {{ $cat->category_name }}--}}
-{{--                                        </option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-                                <select name="category_id" class="form-select form-select-sm rounded-3">
-                                    <option value="">Select Category</option>
-                                    @foreach($category as $cat)
-                                        <option value="{{ $cat->category_id }}"
-                                            {{ old('category_id', $editProduct->category_id ?? '') == $cat->category_id ? 'selected' : '' }}>
-                                            {{ $cat->category_name }}
+                    <div class="card-body p-4">
+
+                        <form action="{{ isset($editProduct)
+                        ? route('setup.product.update',$editProduct->product_id)
+                        : route('setup.product.create') }}"
+                              method="POST">
+
+                            @csrf
+
+                            @if(isset($editProduct))
+                                @method('PUT')
+                            @endif
+
+                            <div class="row g-4">
+
+                                <!-- Category -->
+                                <div class="col-md-6">
+
+                                    <label class="form-label fw-semibold px-2 py-1 rounded"
+                                           style="background: rgb(0 150 136 / 10%);">
+
+                                        Category
+
+                                    </label>
+
+                                    <select name="category_id"
+                                            class="form-select">
+
+                                        <option value="">
+                                            Select Category
                                         </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <!-- Product Name -->
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">
-                                    Product Name
-                                </label>
-                                <div class="input-group input-group-sm">
 
-                                    <span class="input-group-text bg-light">
-                                    <i class="bi bi-bag"></i>
-                                </span>
+                                        @foreach($category as $cat)
+
+                                            <option value="{{ $cat->category_id }}"
+                                                {{ old('category_id', $editProduct->category_id ?? '') == $cat->category_id ? 'selected' : '' }}>
+
+                                                {{ $cat->category_name }}
+
+                                            </option>
+
+                                        @endforeach
+
+                                    </select>
+
+                                </div>
+
+                                <!-- Product Name -->
+                                <div class="col-md-6">
+
+                                    <label class="form-label fw-semibold px-2 py-1 rounded"
+                                           style="background: rgb(0 150 136 / 10%);">
+
+                                        Product Name
+
+                                    </label>
+
                                     <input type="text"
                                            name="product_name"
-                                           value="{{old('product_name',isset($editProduct)? $editProduct->product_name : '')}}"
-{{--                                           value="{{ old('product_name', isset($editProduct) ? $editProduct->product_name : '') }}"--}}
-                                           class="form-control"
+                                           value="{{ old('product_name', isset($editProduct) ? $editProduct->product_name : '') }}"
                                            class="form-control"
                                            placeholder="Enter Product Name">
+
                                 </div>
-                            </div>
-                            <!-- Purchase Price -->
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">
-                                    Purchase Price
-                                </label>
-                                <div class="input-group input-group-sm">
-                                <span class="input-group-text bg-light">
-                                    ৳
-                                </span>
+                                <!-- Purchase Price -->
+                                <div class="col-md-6">
+
+                                    <label class="form-label fw-semibold px-2 py-1 rounded"
+                                           style="background: rgb(0 150 136 / 10%);">
+
+                                        Purchase Price
+
+                                    </label>
+
                                     <input type="number"
                                            step="0.01"
                                            name="purchase_price"
-                                           value="{{old('purchase_price',isset($editProduct)? $editProduct->purchase_price : '')}}"
+                                           value="{{ old('purchase_price', isset($editProduct) ? $editProduct->purchase_price : '') }}"
                                            class="form-control"
                                            placeholder="Enter Purchase Price">
+
                                 </div>
-                            </div>
-                            <!-- Sale Price -->
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold small">
-                                    Sale Price
-                                </label>
-                                <div class="input-group input-group-sm">
-                                <span class="input-group-text bg-light">
-                                    ৳
-                                </span>
+
+                                <!-- Sale Price -->
+                                <div class="col-md-6">
+
+                                    <label class="form-label fw-semibold px-2 py-1 rounded"
+                                           style="background: rgb(0 150 136 / 10%);">
+
+                                        Sale Price
+
+                                    </label>
+
                                     <input type="number"
                                            step="0.01"
                                            name="sale_price"
-                                           value="{{old('sale_price',isset($editProduct)? $editProduct->sale_price : '')}}"
+                                           value="{{ old('sale_price', isset($editProduct) ? $editProduct->sale_price : '') }}"
                                            class="form-control"
                                            placeholder="Enter Sale Price">
+
                                 </div>
+
                             </div>
-                            <!-- Button -->
-                            <div class="d-flex gap-2">
+
+                            <div class="mt-4">
+
                                 <button type="submit"
-                                        class="btn btn-primary btn-sm px-4 rounded-3 fw-semibold">
-                                    <i class="bi bi-check-circle me-1"></i>
+                                        class="btn text-white px-4"
+                                        style="background: rgb(0 150 136);">
 
-                                    {{isset($editProduct)  ? 'Update' : 'Save Product'}}
+                                    <i class="bi bi-save me-1"></i>
+
+                                    {{ isset($editProduct)
+                                        ? 'Update Product'
+                                        : 'Save Product' }}
+
                                 </button>
-                                <a href="{{Route('setup.product')}}"
-                                   class="btn btn-light btn-sm border px-4 rounded-3 fw-semibold">
+
+                                <a href="{{ route('setup.product') }}"
+                                   class="btn btn-secondary">
+
                                     Cancel
+
                                 </a>
+
                             </div>
+
                         </form>
+
                     </div>
+
                 </div>
+
             </div>
         </div>
-    </div>
 
-    {{----------------------------------------}}
-    <div class="row justify-content-center mt-4">
-        <div class="col-xl-9">
-            <div class="card border-0 shadow rounded-4 overflow-hidden">
-                <!-- Table Header -->
-                <div class="card-header border-0 py-3 px-4"
-                     style="background: linear-gradient(135deg,#f8f9fa,#eef2ff);">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <h4 class="fw-bold mb-1 text-dark fs-5">
-                                <i class="bi bi-table me-2 text-primary"></i>
-                                Product List
-                            </h4>
-                            <p class="text-muted mb-0 small">
-                                Manage your existing Product.
-                            </p>
+        <!-- Product List -->
+        <div class="row mt-4">
+
+            <div class="col-12">
+
+                <div class="card border-0 shadow rounded-4 overflow-hidden">
+
+                    <div class="card-header py-3 px-4"
+                         style="background: rgb(0 150 136 / 10%);">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+
+                                <h4 class="fw-bold mb-1"
+                                    style="color: rgb(0 150 136);">
+
+                                    <i class="bi bi-table me-2"></i>
+
+                                    Product List
+
+                                </h4>
+
+                                <p class="text-muted mb-0 small">
+                                    Manage existing products.
+                                </p>
+
+                            </div>
+
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+
+                            Total : {{ count($product) }}
+
+                        </span>
+
                         </div>
-                        <span class="badge bg-primary rounded-pill px-3 py-2 small">
-                                Total : {{ count($product) }}
-                            </span>
-                    </div>
-                </div>
-                <!-- Table -->
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0 small">
-                            <thead class="bg-light">
-                            <tr>
-                                <th class="ps-4 py-2 fw-bold">#</th>
-                                <th class="py-2 fw-bold">Product Name</th>
-                                <th class="py-2 fw-bold">Category</th>
-                                <th class="py-2 fw-bold">Purchase Price</th>
-                                <th class="py-2 fw-bold">Sales Price</th>
-                                <th class="py-2 fw-bold text-end pe-4">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @forelse($product as $key => $prod)
-                                <tr>
-                                    <td class="ps-4 py-2 fw-semibold">
-                                        {{ $key + 1 }}
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="fw-semibold text-dark">
-                                            {{ $prod->product_name }}
-                                        </div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="fw-semibold text-dark">
 
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover align-middle mb-0">
+
+                                <thead class="table-light">
+
+                                <tr>
+                                    <th class="ps-4">#</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Purchase Price</th>
+                                    <th>Sale Price</th>
+                                    <th class="text-end pe-4">Action</th>
+                                </tr>
+
+                                </thead>
+
+                                <tbody>
+                                @forelse($product as $key => $prod)
+
+                                    <tr>
+
+                                        <td class="ps-4">
+                                            {{ $key + 1 }}
+                                        </td>
+
+                                        <td>{{ $prod->product_name }}</td>
+
+                                        <td>
                                             {{ $prod->category?->category_name ?? 'No Category' }}
-                                        </div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="fw-semibold text-dark">
-                                            {{ $prod->purchase_price }}
-                                        </div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="fw-semibold text-dark">
-                                            {{ $prod->sale_price }}
-                                        </div>
-                                    </td>
-                                    <td class="text-end pe-4 py-2">
-                                        <div class="d-flex justify-content-end gap-2">
+                                        </td>
 
-                                            <!-- Edit -->
-                                            <a href="{{Route('setup.product.edit',$prod->product_id)}}"
-                                               class="btn btn-sm btn-light border text-primary rounded-3">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                            <!-- Delete -->
+                                        <td>{{ $prod->purchase_price }}</td>
 
-                                            <form action="{{Route('setup.product.delete',$prod->product_id)}}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-light border text-danger rounded-3">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4"
-                                        class="text-center py-4 text-muted small">
-                                        <i class="bi bi-inbox fs-4 d-block mb-2"></i>
-                                        No categories found.
-                                    </td>
-                                </tr>
-                            @endforelse
-                            </tbody>
-                        </table>
+                                        <td>{{ $prod->sale_price }}</td>
+
+                                        <td class="text-end pe-4">
+
+                                            <div class="d-flex justify-content-end gap-2">
+
+                                                <a href="{{ route('setup.product.edit',$prod->product_id) }}"
+                                                   class="btn btn-sm btn-outline-primary">
+
+                                                    <i class="bi bi-pencil-square"></i>
+
+                                                </a>
+
+                                                <form action="{{ route('setup.product.delete',$prod->product_id) }}"
+                                                      method="POST">
+
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger">
+
+                                                        <i class="bi bi-trash"></i>
+
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+
+                                        <td colspan="6"
+                                            class="text-center py-5 text-muted">
+
+                                            No Product Found
+
+                                        </td>
+
+                                    </tr>
+
+                                @endforelse
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))
-
         <script>
-
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
-                confirmButtonColor: '#0d6efd'
+                confirmButtonColor: '#009688'
             });
-
         </script>
-
     @endif
 
     @if(session('updated'))
-
         <script>
-
             Swal.fire({
                 icon: 'success',
                 title: 'Updated',
                 text: '{{ session('updated') }}',
-                confirmButtonColor: '#0d6efd'
+                confirmButtonColor: '#009688'
             });
-
         </script>
-
     @endif
 
     @if(session('delete'))
-
         <script>
-
             Swal.fire({
                 icon: 'success',
                 title: 'Deleted',
                 text: '{{ session('delete') }}',
-                confirmButtonColor: '#0d6efd'
+                confirmButtonColor: '#009688'
             });
-
         </script>
-
     @endif
+
 @endsection

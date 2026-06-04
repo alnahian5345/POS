@@ -40,7 +40,7 @@ class setupController extends Controller
         $category->save();
         return redirect()
             ->route('setup.category')
-            ->with('updated','Successfully Category Updated');
+            ->with('update','Successfully Category Updated');
     }
 
 
