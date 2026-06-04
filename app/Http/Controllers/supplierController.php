@@ -17,9 +17,14 @@ class supplierController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $supplier=new Supplier();
+        $supplier->supplier_name    =$request->supplier_name;
+        $supplier->phone            =$request->phone;
+        $supplier->address          =$request->address;
+        $supplier->save();
+        return redirect()->route('setup.supplier')->with('success','Successfully Supplier Added');
     }
 
     /**

@@ -34,6 +34,7 @@ Route::put('/customer/update/{customer_id}',[CustomersController::class,'update'
 
 Route::get('/supplier',[supplierController::class,'index'])->name('setup.supplier');
 Route::delete('/supplier/delete/{supplier_id}',[supplierController::class,'destroy'])->name('setup.supplier.delete');
+Route::post('/supplier',[supplierController::class,'create'])->name('setup.supplier.create');
 
 Route::get('/purchase',[purchaseController::class,'index'])->name('purchase.purchase');
 

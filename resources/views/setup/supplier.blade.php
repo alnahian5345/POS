@@ -28,8 +28,8 @@
 
             <div class="card-body">
 
-                <form action="" method="POST">
-
+                <form action="{{route('setup.supplier.create')}}" method="POST">
+                    @csrf
                     <div class="row g-4">
 
                         <!-- Supplier Name -->
