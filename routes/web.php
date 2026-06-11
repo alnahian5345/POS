@@ -9,7 +9,7 @@ use App\Http\Controllers\supplierController;
 
 Route::get('/', function () {
     return view('main.index');
-});
+})->name('dashboard');
 
 
 Route::get('/category',[setupController::class,'category'])->name('setup.category');

@@ -3,7 +3,7 @@
     <div class="container-fluid py-4">
 
         <div class="card shadow-sm border-0 rounded-3">
-            <!-- Page Heading -->
+            <!---------------------------------------------------- Page Heading -->
             <div class="row mb-3">
                 <div class="col-12">
 
@@ -76,7 +76,7 @@
 
                     </div>
 
-                    <!-- Product Table -->
+                    <!----------------------------------------- Product Table------------------------------------------ -->
                     <div class="table-responsive">
 
                         <table class="table table-bordered table-hover align-middle">
@@ -137,7 +137,7 @@
 
                     </div>
 
-                    <!-- Add Row -->
+                    <!-------------------------------------- Add Row---------------- -->
                     <div class="mb-3">
                         <button type="button"
                                 class="btn btn-success">
@@ -145,7 +145,7 @@
                         </button>
                     </div>
 
-                    <!-- Summary -->
+                    <!---------------------------------------------- Summary ----------------------------->
                     <div class="row">
 
                         <div class="col-md-4 ms-auto">
@@ -184,7 +184,7 @@
 
                     </div>
 
-                    <!-- Buttons -->
+                    <!------------------------------------------------ Buttons ---------------------------->
                     <div class="text-end">
 
                         <button type="reset"
