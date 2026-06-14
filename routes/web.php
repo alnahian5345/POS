@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\setupController;
+use App\Http\Controllers\categoryController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\purchaseController;
@@ -12,11 +12,11 @@ Route::get('/', function () {
 })->name('dashboard');
 
 
-Route::get('/category',[setupController::class,'category'])->name('setup.category');
-Route::post('/category',[setupController::class,'categoryCreate'])->name('setup.category.create');
-Route::get('/category/editCategory/{category_id}',[setupController::class,'editCategory'])->name('setup.category.editCategory');
-Route::put('/category/update/{category_id}',[setupController::class,'categoryUpdate'])->name('setup.category.update');
-Route::delete('/category/{category_id}',[setupController::class,'categoryDelete'])->name('setup.category.delete');
+Route::get('/category',[categoryController::class,'category'])->name('setup.category');
+Route::post('/category',[categoryController::class,'categoryCreate'])->name('setup.category.create');
+Route::get('/category/editCategory/{category_id}',[categoryController::class,'editCategory'])->name('setup.category.editCategory');
+Route::put('/category/update/{category_id}',[categoryController::class,'categoryUpdate'])->name('setup.category.update');
+Route::delete('/category/{category_id}',[categoryController::class,'categoryDelete'])->name('setup.category.delete');
 
 
 Route::get('/product',[productController::class,'product'])->name('setup.product');
@@ -37,6 +37,7 @@ Route::delete('/supplier/delete/{supplier_id}',[supplierController::class,'destr
 Route::post('/supplier',[supplierController::class,'create'])->name('setup.supplier.create');
 
 Route::get('/purchase',[purchaseController::class,'index'])->name('purchase.purchase');
+Route::get('/purchase/supplier-list',[purchaseController::class,'getSupllier'])->name('purchase.purchase.supplier-list');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class purchaseController extends Controller
@@ -11,7 +12,7 @@ class purchaseController extends Controller
      */
     public function index()
     {
-        return view('/purchase.purchase');
+        return view('purchase.purchase');
     }
 
     /**
@@ -60,5 +61,11 @@ class purchaseController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+//
+    public function getSupllier(){
+        $purSupplier=Supplier::all();
+        return response()->json($purSupplier);
     }
 }

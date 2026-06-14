@@ -60,6 +60,7 @@
                             </label>
 
                             <select class="form-select"
+                                    id="supplier_id"
                                     name="supplier_id">
                                 <option>Select Supplier</option>
                             </select>
@@ -207,4 +208,42 @@
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function () {
+
+            loadSupplierList();
+
+        });
+
+        function loadSupplierList() {
+
+            $.ajax({
+
+                url: "{{ route('purchase.purchase.supplier-list') }}",
+                type: "GET",
+
+                success:function(response){
+
+                    let option = '<option value="">Select Supplier</option>';
+
+                    $.each(response,function(index,row){
+                        option += `<option value="${row.id}">
+                     ${row.supplier_name}
+                   </option>`;
+                    });
+
+                    $('#supplier_id').html(option);
+
+                    $('#supplier_id').select2({
+                        placeholder:'Select Supplier',
+                        minimumResultsForSearch:0
+                    });
+                }
+
+            });
+
+        }
+    </script>
+
 @endsection
