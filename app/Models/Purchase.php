@@ -11,7 +11,7 @@ class Purchase extends Model
     protected $primaryKey="purchase_details";
     public $timestamps=false;
 
-    public function SupplierList(){
+    public function Supplier(){
         return $this->belongsTo(Supplier::class,'supplier_id','supplier_id');
     }
 }

@@ -216,33 +216,42 @@
 
         });
 
-        function loadSupplierList() {
-
+        function loadSupplierList()
+        {
             $.ajax({
-
                 url: "{{ route('purchase.purchase.supplier-list') }}",
                 type: "GET",
+                dataType: "json",
 
-                success:function(response){
-
+                success: function (response)
+                {
                     let option = '<option value="">Select Supplier</option>';
 
-                    $.each(response,function(index,row){
-                        option += `<option value="${row.id}">
-                     ${row.supplier_name}
-                   </option>`;
+                    $.each(response, function (i, sup)
+                    {
+                        option += `
+                        <option value="${sup.id}">
+                            ${sup.supplier_name}
+                        </option>
+                    `;
                     });
 
                     $('#supplier_id').html(option);
 
+
                     $('#supplier_id').select2({
-                        placeholder:'Select Supplier',
-                        minimumResultsForSearch:0
+                        placeholder: 'Select Supplier',
+                        allowClear: true,
+                        width: '100%'
                     });
+                },
+
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                    console.log(xhr.responseText);
                 }
-
             });
-
         }
     </script>
 
