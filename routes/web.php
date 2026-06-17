@@ -24,6 +24,7 @@ Route::post('/product',[productController::class,'create'])->name('setup.product
 Route::delete('/product/delete/{product_id}',[productController::class,'destroy'])->name('setup.product.delete');
 Route::get('/product/edit/{product_id}',[productController::class,'edit'])->name('setup.product.edit');
 Route::put('/product/update/{product_id}',[productController::class,'update'])->name('setup.product.update');
+Route::get('/product/product-list',[productController::class,'getProductList'])->name('setup.product.category_list');
 
 Route::get('/customer',[CustomersController::class,'index'])->name('setup.customer');
 Route::post('/customer',[CustomersController::class,'create'])->name('setup.customer.create');

@@ -85,4 +85,10 @@ class productController extends Controller
        $product->delete();
        return redirect()->route('setup.product')->with('delete','Successfully deleted');
     }
+
+
+    public function getProductList(){
+        $productList=Category::all();
+        return response()->json($productList);
+    }
 }

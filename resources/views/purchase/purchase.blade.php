@@ -230,7 +230,7 @@
                     $.each(response, function (i, sup)
                     {
                         option += `
-                        <option value="${sup.id}">
+                        <option value="${sup.supplier_id}">
                             ${sup.supplier_name}
                         </option>
                     `;
@@ -239,7 +239,7 @@
                     $('#supplier_id').html(option);
 
 
-                    $('#supplier_id').select2({
+                    $('#supplier_id').select3({
                         placeholder: 'Select Supplier',
                         allowClear: true,
                         width: '100%'

@@ -69,24 +69,25 @@
 
                                     </label>
 
-                                    <select name="category_id"
-                                            class="form-select">
+                                    <select
+                                        id="category_id"
+                                        name="category_id"
+                                        class="form-select">
 
                                         <option value="">
                                             Select Category
                                         </option>
 
-                                        @foreach($category as $cat)
+                                        {{--                                        @foreach($category as $cat)--}}
 
-                                            <option value="{{ $cat->category_id }}"
-                                                {{ old('category_id', $editProduct->category_id ?? '') == $cat->category_id ? 'selected' : '' }}>
+                                        {{--                                            <option value="{{ $cat->category_id }}"--}}
+                                        {{--                                                {{ old('category_id', $editProduct->category_id ?? '') == $cat->category_id ? 'selected' : '' }}>--}}
 
-                                                {{ $cat->category_name }}
+                                        {{--                                                {{ $cat->category_name }}--}}
 
-                                            </option>
+                                        {{--                                            </option>--}}
 
-                                        @endforeach
-
+                                        {{--                                        @endforeach--}}
                                     </select>
 
                                 </div>
@@ -354,5 +355,42 @@
             });
         </script>
     @endif
+    <script>
+        $(document).ready(function () {
+            loadProductList();
+
+
+            function loadProductList() {
+                $.ajax({
+                    url: "{{route('setup.product.category_list')}}",
+                    type: "get",
+                    dataType: "json",
+                    success: function (response) {
+
+                        let selectedCategoryId = "{{ $editProduct->category_id ?? '' }}";
+
+                        let option = '<option value="" >Select Category</option>';
+
+                        $.each(response, function (i, cat) {
+                            let selected=selectedCategoryId==cat.category_id?'selected':" ";
+
+                            option += `<option value="${cat.category_id} " ${selected}>
+                               ${cat.category_name}
+                            </option>`;
+                        });
+
+                        $('#category_id').html(option);
+
+                        $('#category_id').select2({
+                            placeholder:'Select supplier',
+                            allowClear: true,
+                            width: '100%'
+                        })
+                    }
+                });
+            }
+        });
+
+    </script>
 
 @endsection
