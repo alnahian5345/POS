@@ -7,6 +7,8 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\purchaseController;
 use App\Http\Controllers\supplierController;
 
+
+
 Route::get('/', function () {
     return view('main.index');
 })->name('dashboard');
@@ -38,7 +40,9 @@ Route::delete('/supplier/delete/{supplier_id}',[supplierController::class,'destr
 Route::post('/supplier',[supplierController::class,'create'])->name('setup.supplier.create');
 
 Route::get('/purchase',[purchaseController::class,'index'])->name('purchase.purchase');
-Route::get('/purchase/supplier-list',[purchaseController::class,'getSupllier'])->name('purchase.purchase.supplier-list');
+Route::post('/purchase/create', [PurchaseController::class, 'create']) ->name('purchase.purchase.create');
+Route::get('/purchase/supplier-list',[purchaseController::class,'getSupllierList'])->name('purchase.purchase.supplier-list');
+Route::get('/purchase/product-list',[purchaseController::class,'getProductList'])->name('purchase.purchase.product-list');
 
 
 

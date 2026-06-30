@@ -30,9 +30,10 @@
 
             <div class="card-body">
 
-                <form action="" method="POST">
+                <form action="{{Route('purchase.purchase.create')}}" method="POST">
 
-                    <!-- Purchase Info -->
+                    @csrf
+
                     <div class="row g-3 mb-4">
 
                         <div class="col-md-3">
@@ -99,10 +100,13 @@
                             <tr>
 
                                 <td>
-                                    <select class="form-select"
+                                    <select class="form-select  product_id "
+                                            class=""
                                             name="product_id[]">
+
                                         <option>Select Product</option>
                                     </select>
+
                                 </td>
 
                                 <td>
@@ -239,7 +243,7 @@
                     $('#supplier_id').html(option);
 
 
-                    $('#supplier_id').select3({
+                    $('#supplier_id').select2({
                         placeholder: 'Select Supplier',
                         allowClear: true,
                         width: '100%'
@@ -251,6 +255,39 @@
                     console.log('Error:', error);
                     console.log(xhr.responseText);
                 }
+            });
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            loadProductList();
+        });
+        function loadProductList() {
+            $.ajax({
+                url: "{{Route('purchase.purchase.product-list')}}",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    let option = '<option value="">Select Product</option>';
+
+                    $.each(response,function (i, prod) {
+                        option += `
+                        <option value="${prod.product_id}">
+                            ${prod.product_name}
+                        </option>
+                    `;
+                    })
+                    $('.product_id').html(option);
+                    $('.product_id').select2({
+                        placeholder: 'Select Product',
+                        allowClear: true,
+                        widht:'100%'
+                    })
+
+                }
+
             });
         }
     </script>
