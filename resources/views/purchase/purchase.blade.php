@@ -145,6 +145,7 @@
                     <!-------------------------------------- Add Row---------------- -->
                     <div class="mb-3">
                         <button type="button"
+                                id="addRow"
                                 class="btn btn-success">
                             + Add Product
                         </button>
@@ -214,82 +215,160 @@
     </div>
 
     <script>
+
+        let productOption = '';
+
         $(document).ready(function () {
 
             loadSupplierList();
+            loadProductList();
+
+            // ================= Add Product Row =================
+            $('#addRow').on('click', function () {
+
+                let row = `
+                <tr>
+
+                    <td>
+                        <select class="form-select product_id" name="product_id[]">
+                            ${productOption}
+                        </select>
+                    </td>
+
+                    <td>
+                        <input type="number"
+                               class="form-control qty"
+                               name="qty[]">
+                    </td>
+
+                    <td>
+                        <input type="number"
+                               class="form-control price"
+                               name="price[]">
+                    </td>
+
+                    <td>
+                        <input type="text"
+                               class="form-control amount"
+                               readonly>
+                    </td>
+
+                    <td class="text-center">
+                        <button type="button"
+                                class="btn btn-danger btn-sm removeRow">
+                            Remove
+                        </button>
+                    </td>
+
+                </tr>
+            `;
+
+                $('#productTable').append(row);
+
+                // Initialize Select2 for new row
+                $('#productTable tr:last .product_id').select2({
+                    placeholder: "Select Product",
+                    allowClear: true,
+                    width: "100%"
+                });
+
+            });
+
+            // ================= Remove Row =================
+            $(document).on('click', '.removeRow', function () {
+
+                if ($('#productTable tr').length > 1) {
+                    $(this).closest('tr').remove();
+                } else {
+                    alert('At least one product is required.');
+                }
+
+            });
 
         });
 
-        function loadSupplierList()
-        {
+        // ================= Supplier =================
+        function loadSupplierList() {
+
             $.ajax({
                 url: "{{ route('purchase.purchase.supplier-list') }}",
                 type: "GET",
                 dataType: "json",
 
-                success: function (response)
-                {
+                success: function (response) {
+
                     let option = '<option value="">Select Supplier</option>';
 
-                    $.each(response, function (i, sup)
-                    {
+                    $.each(response, function (i, sup) {
+
                         option += `
                         <option value="${sup.supplier_id}">
                             ${sup.supplier_name}
                         </option>
                     `;
+
                     });
 
                     $('#supplier_id').html(option);
 
-
                     $('#supplier_id').select2({
-                        placeholder: 'Select Supplier',
+                        placeholder: "Select Supplier",
                         allowClear: true,
-                        width: '100%'
+                        width: "100%"
                     });
+
                 },
 
-                error: function (xhr, status, error)
-                {
-                    console.log('Error:', error);
+                error: function (xhr) {
                     console.log(xhr.responseText);
                 }
+
             });
+
         }
-    </script>
 
-
-    <script>
-        $(document).ready(function () {
-            loadProductList();
-        });
+        // ================= Product =================
         function loadProductList() {
+
             $.ajax({
-                url: "{{Route('purchase.purchase.product-list')}}",
+
+                url: "{{ route('purchase.purchase.product-list') }}",
                 type: "GET",
                 dataType: "json",
-                success: function (response) {
-                    let option = '<option value="">Select Product</option>';
 
-                    $.each(response,function (i, prod) {
-                        option += `
+                success: function (response) {
+
+                    productOption = '<option value="">Select Product</option>';
+
+                    $.each(response, function (i, prod) {
+
+                        productOption += `
                         <option value="${prod.product_id}">
                             ${prod.product_name}
                         </option>
                     `;
-                    })
-                    $('.product_id').html(option);
-                    $('.product_id').select2({
-                        placeholder: 'Select Product',
-                        allowClear: true,
-                        widht:'100%'
-                    })
 
+                    });
+
+                    // First Row
+                    $('.product_id').html(productOption);
+
+                    $('.product_id').select2({
+                        placeholder: "Select Product",
+                        allowClear: true,
+                        width: "100%"
+                    });
+
+                },
+
+                error: function (xhr) {
+                    console.log(xhr.responseText);
                 }
 
             });
+
         }
+
     </script>
 
 @endsection

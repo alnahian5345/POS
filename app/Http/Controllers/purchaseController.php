@@ -48,6 +48,7 @@ class purchaseController extends Controller
             $purchaseDetails->save();
 
         }
+        return redirect()->route('purchase.purchase')->with('success','Successfully Purchased');
     }
 
     /**
