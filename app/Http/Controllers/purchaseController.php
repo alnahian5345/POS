@@ -27,7 +27,8 @@ class purchaseController extends Controller
 
        $grandTotal=0;
        foreach ($request->product_id as $key =>$prod ){
-           $grandTotal=$request->qty[$key]  * $request->price[$key] ;
+           $amount=$request->qty[$key]  * $request->price[$key] ;
+           $grandTotal=$amount+$grandTotal;
        }
         $purchase->invoice_no=$request->invoice_no;
         $purchase->purchase_date=$request->purchase_date;

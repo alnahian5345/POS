@@ -162,16 +162,22 @@
                                     <th>Subtotal</th>
                                     <td>
                                         <input type="text"
+                                               id="subtotal"
+                                               name="subtotal"
                                                class="form-control text-end"
                                                readonly>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>Discount</th>
+                                    <th>Discount (%)</th>
                                     <td>
                                         <input type="number"
-                                               class="form-control text-end">
+                                               id="discount"
+                                               name="discount"
+                                               class="form-control text-end"
+                                               value="0"
+                                               step="0.01">
                                     </td>
                                 </tr>
 
@@ -179,6 +185,8 @@
                                     <th>Grand Total</th>
                                     <td>
                                         <input type="text"
+                                               id="grand_total"
+                                               name="grand_total"
                                                class="form-control text-end fw-bold"
                                                readonly>
                                     </td>
@@ -213,162 +221,10 @@
         </div>
 
     </div>
-
     <script>
-
-        let productOption = '';
-
-        $(document).ready(function () {
-
-            loadSupplierList();
-            loadProductList();
-
-            // ================= Add Product Row =================
-            $('#addRow').on('click', function () {
-
-                let row = `
-                <tr>
-
-                    <td>
-                        <select class="form-select product_id" name="product_id[]">
-                            ${productOption}
-                        </select>
-                    </td>
-
-                    <td>
-                        <input type="number"
-                               class="form-control qty"
-                               name="qty[]">
-                    </td>
-
-                    <td>
-                        <input type="number"
-                               class="form-control price"
-                               name="price[]">
-                    </td>
-
-                    <td>
-                        <input type="text"
-                               class="form-control amount"
-                               readonly>
-                    </td>
-
-                    <td class="text-center">
-                        <button type="button"
-                                class="btn btn-danger btn-sm removeRow">
-                            Remove
-                        </button>
-                    </td>
-
-                </tr>
-            `;
-
-                $('#productTable').append(row);
-
-                // Initialize Select2 for new row
-                $('#productTable tr:last .product_id').select2({
-                    placeholder: "Select Product",
-                    allowClear: true,
-                    width: "100%"
-                });
-
-            });
-
-            // ================= Remove Row =================
-            $(document).on('click', '.removeRow', function () {
-
-                if ($('#productTable tr').length > 1) {
-                    $(this).closest('tr').remove();
-                } else {
-                    alert('At least one product is required.');
-                }
-
-            });
-
-        });
-
-        // ================= Supplier =================
-        function loadSupplierList() {
-
-            $.ajax({
-                url: "{{ route('purchase.purchase.supplier-list') }}",
-                type: "GET",
-                dataType: "json",
-
-                success: function (response) {
-
-                    let option = '<option value="">Select Supplier</option>';
-
-                    $.each(response, function (i, sup) {
-
-                        option += `
-                        <option value="${sup.supplier_id}">
-                            ${sup.supplier_name}
-                        </option>
-                    `;
-
-                    });
-
-                    $('#supplier_id').html(option);
-
-                    $('#supplier_id').select2({
-                        placeholder: "Select Supplier",
-                        allowClear: true,
-                        width: "100%"
-                    });
-
-                },
-
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-
-            });
-
-        }
-
-        // ================= Product =================
-        function loadProductList() {
-
-            $.ajax({
-
-                url: "{{ route('purchase.purchase.product-list') }}",
-                type: "GET",
-                dataType: "json",
-
-                success: function (response) {
-
-                    productOption = '<option value="">Select Product</option>';
-
-                    $.each(response, function (i, prod) {
-
-                        productOption += `
-                        <option value="${prod.product_id}">
-                            ${prod.product_name}
-                        </option>
-                    `;
-
-                    });
-
-                    // First Row
-                    $('.product_id').html(productOption);
-
-                    $('.product_id').select2({
-                        placeholder: "Select Product",
-                        allowClear: true,
-                        width: "100%"
-                    });
-
-                },
-
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-
-            });
-
-        }
-
+        const supplierUrl = "{{ route('purchase.purchase.supplier-list') }}";
+        const productUrl = "{{ route('purchase.purchase.product-list') }}";
     </script>
 
+    <script src="{{ asset('js/purchase/purchase.js') }}"></script>
 @endsection
