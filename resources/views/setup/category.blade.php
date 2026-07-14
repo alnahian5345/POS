@@ -115,7 +115,7 @@
                             </div>
 
                             <!-- Buttons -->
-                            <div class="mt-4">
+                            <div class="mt-4     text-end ">
 
                                 <button type="submit"
                                         class="btn text-white px-4"
