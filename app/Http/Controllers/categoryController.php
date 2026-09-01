@@ -23,7 +23,8 @@ class categoryController extends Controller
         $category->category_name    =$request->category_name;
         $category->status           =$request->status;
         $category->save();
-        return redirect()->back()->with('success','Successfully Category Added');
+//        return redirect()->back()->with('success','Successfully Category Added');
+        return redirect()->route('setup.category')->with('success','Successfully Category Added');
     }
 
     public function editCategory($category_id){
@@ -48,7 +49,8 @@ class categoryController extends Controller
     public function categoryDelete(Request $request,$category_id){
         $category=Category::findOrFail($category_id);
         $category->delete();
-        return redirect()->back()->with('delete','Successfully Category Deleted');
+//        return redirect()->back()->with('delete','Successfully Category Deleted');
+        return redirect()->route('setup.category')->with('delete','Successfully Category Deleted');
     }
 
     public function product(){
