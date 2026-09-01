@@ -5,7 +5,8 @@
     <div class="container-fluid px-4 py-4">
 
         <!-- Page Header -->
-        <div class="bg-success bg-gradient rounded-4 p-4 p-md-5 mb-4 text-white shadow-sm">
+        <div class="rounded-4 p-4 p-md-5 mb-4 text-white shadow-sm"
+             style="background: linear-gradient(135deg, #0D9488, #0F766E);">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                 <div>
                     <h2 class="fw-bold mb-1">
@@ -23,10 +24,10 @@
 
         <!-- Stats Cards -->
         <div class="row g-3 mb-4">
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
                 <div class="card border-0 shadow-sm rounded-4 h-100">
                     <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
+                        <div class="rounded-3 p-3" style="background-color: #CCFBF1; color: #0F766E;">
                             <i class="bi bi-folder2-open fs-4"></i>
                         </div>
                         <div>
@@ -37,10 +38,10 @@
                 </div>
             </div>
 
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
                 <div class="card border-0 shadow-sm rounded-4 h-100">
                     <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
+                        <div class="rounded-3 p-3" style="background-color: #D1FAE5; color: #059669;">
                             <i class="bi bi-check-circle fs-4"></i>
                         </div>
                         <div>
@@ -51,10 +52,10 @@
                 </div>
             </div>
 
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
                 <div class="card border-0 shadow-sm rounded-4 h-100">
                     <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-danger bg-opacity-10 text-danger rounded-3 p-3">
+                        <div class="rounded-3 p-3" style="background-color: #FEE2E2; color: #DC2626;">
                             <i class="bi bi-x-circle fs-4"></i>
                         </div>
                         <div>
@@ -68,21 +69,12 @@
 
         <!-- Category Table Card -->
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="card-header bg-white border-bottom py-3 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="fw-bold mb-0">All Categories</h5>
-                            {{-- <small class="text-muted">List of all products</small> --}}
-                        </div>
-                        <div class="d-flex ">
-                            <input type="text" class="form-control form-control-sm" placeholder="Search products..." style="min-width: 200px;">
-                        </div>
-                    </div>
+            <div class="card-header bg-white border-bottom py-3 px-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <h5 class="fw-bold mb-0">All Categories</h5>
+                    <input type="text" class="form-control form-control-sm" placeholder="Search categories..." style="max-width: 250px;">
                 </div>
             </div>
-
-
 
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -101,7 +93,7 @@
                                 <td class="ps-4 text-muted">{{ $key + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="bg-success bg-opacity-10 text-success rounded-3 p-2">
+                                        <div class="rounded-3 p-2" style="background-color: #CCFBF1; color: #0F766E;">
                                             <i class="bi bi-folder"></i>
                                         </div>
                                         <span class="fw-medium">{{ $cat->category_name }}</span>
@@ -109,11 +101,13 @@
                                 </td>
                                 <td>
                                     @if($cat->status == 'Y')
-                                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-2">
+                                        <span class="badge rounded-pill px-3 py-2"
+                                              style="background-color: #D1FAE5; color: #059669;">
                                             <i class="bi bi-check-circle me-1"></i> Active
                                         </span>
                                     @else
-                                        <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger px-3 py-2">
+                                        <span class="badge rounded-pill px-3 py-2"
+                                              style="background-color: #FEE2E2; color: #DC2626;">
                                             <i class="bi bi-x-circle me-1"></i> Inactive
                                         </span>
                                     @endif
@@ -121,7 +115,8 @@
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
                                         <button type="button"
-                                                class="btn btn-sm btn-outline-primary rounded-3"
+                                                class="btn btn-sm rounded-3"
+                                                style="border: 1px solid #0D9488; color: #0D9488;"
                                                 title="Edit"
                                                 onclick="openEditModal({{ $cat->category_id }}, '{{ $cat->category_name }}', '{{ $cat->status }}')">
                                             <i class="bi bi-pencil"></i>
@@ -146,7 +141,8 @@
                                         <i class="bi bi-folder-x text-muted display-4"></i>
                                         <h5 class="mt-3 text-muted">No Categories Found</h5>
                                         <p class="text-muted mb-4">Get started by creating your first category</p>
-                                        <button type="button" class="btn btn-success rounded-pill px-4"
+                                        <button type="button" class="btn rounded-pill px-4 text-white"
+                                                style="background-color: #0D9488;"
                                                 data-bs-toggle="modal" data-bs-target="#categoryModal"
                                                 onclick="openCreateModal()">
                                             <i class="bi bi-plus-lg me-1"></i> Add Category
@@ -167,7 +163,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4">
 
-                <div class="modal-header bg-success bg-gradient text-white">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0D9488, #0F766E);">
                     <h5 class="modal-title">
                         <i class="bi bi-folder-plus me-2"></i>
                         <span id="modalTitleText">Create Category</span>
@@ -201,7 +197,8 @@
 
                     <div class="modal-footer border-0 px-4 pb-4">
                         <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success rounded-pill px-4" id="submitBtn">
+                        <button type="submit" class="btn rounded-pill px-4 text-white" id="submitBtn"
+                                style="background-color: #0D9488;">
                             <i class="bi bi-check2 me-1"></i>
                             <span id="submitBtnText">Save Category</span>
                         </button>
@@ -221,7 +218,7 @@
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
-                confirmButtonColor: '#198754'
+                confirmButtonColor: '#0D9488'
             });
         </script>
     @endif
@@ -232,7 +229,7 @@
                 icon: 'success',
                 title: 'Updated',
                 text: '{{ session('update') }}',
-                confirmButtonColor: '#198754'
+                confirmButtonColor: '#0D9488'
             });
         </script>
     @endif
@@ -243,7 +240,7 @@
                 icon: 'success',
                 title: 'Deleted',
                 text: '{{ session('delete') }}',
-                confirmButtonColor: '#198754'
+                confirmButtonColor: '#0D9488'
             });
         </script>
     @endif

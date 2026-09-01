@@ -5,7 +5,8 @@
     <div class="container-fluid px-4 py-4">
 
         <!-- Page Header -->
-        <div class="bg-success bg-gradient rounded-4 p-4 p-md-5 mb-4 text-white shadow-sm">
+        <div class="rounded-4 p-4 p-md-5 mb-4 text-white shadow-sm"
+             style="background: linear-gradient(135deg, #0D9488, #0F766E);">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                 <div>
                     <h2 class="fw-bold mb-1">
